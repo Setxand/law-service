@@ -40,6 +40,7 @@
 			background: #A9A9A9;
 			text-align: center;
 			border-radius:10px;
+
 		}
 
 		#service-block:hover {
@@ -52,7 +53,61 @@
 			font-size: 18px;
 		}
 		 
+		#service-block" img {
+			height: 80px;
+			width: 80px;
+		}
+
+		#service-content {
+			display: flex;
+			justify-content: space-between;
+		}
 	</style>
+
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$(document).ready(function() {
+			var services = [[${services}]];
+			
+			
+			for(var i = 0; i  < Object.keys(services).length; i++){
+			
+				var serviceBlocks = document.createElement('div');
+				serviceBlocks.setAttribute("id","service-blocks");
+				serviceBlocks.setAttribute("style","margin-top: 50px;");
+				var serviceBlock = document.createElement('div');
+				for(var j=0;j<3;j++) {
+
+					
+					var serviceContent = document.createElement('div');
+					serviceContent.setAttribute("id","service-content");
+					var h3 = document.createElement('h3');
+					var p = document.createElement('p');
+					var img = document.createElement('img');
+
+					serviceBlock.setAttribute("id","service-block");
+					serviceBlock.appendChild(serviceContent);
+					serviceBlock.appendChild(img);
+
+					h3.innerHTML = services[i].title;
+					p.innerHTML = services[i].content;
+					img.setAttribute("src",services[i].image);
+					if(j!=2)continue;
+
+				}
+
+				serviceBlocks.appendChild(serviceBlock);
+				document.getElementById('content-blocks').append(serviceBlocks);
+			}
+
+		})	
+		 /*]]>*/
+
+	
+	</script>
+	
+
 	<body>
 		<div class="container">
 		
@@ -66,31 +121,41 @@
 				<h2>We offer : </h2>
 				<p>Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will make relations stronger and your second half happier.Are you proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
 			</div>
+			<div id="content-blocks">
 
-			<div id="service-blocks" style="margin-top: 50px;">
-				<div id="service-block">Service 1</div>
-				<div id="service-block">Service 2</div>
-				<div id="service-block">Service 3</div>
+
+
+				<!-- <div id="service-blocks" style="margin-top: 50px;">
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src=""/>	
+						</div>
+						<p>Content</p>
+					</div>
+					
+
+				</div>
+
+				<br/>
+				<br/>
+				<div id="service-blocks">
+					<div id="service-block">Service 1</div>
+					<div id="service-block">Service 2</div>
+					<div id="service-block">Service 3</div>
+
+				</div>
+				<br/>
+				<br/>
+				<div id="service-blocks">
+					<div id="service-block">Service 1</div>
+					<div id="service-block">Service 2</div>
+					<div id="service-block">Service 3</div>
+
+				</div> -->
+
 
 			</div>
-
-			<br/>
-			<br/>
-			<div id="service-blocks">
-				<div id="service-block">Service 1</div>
-				<div id="service-block">Service 2</div>
-				<div id="service-block">Service 3</div>
-
-			</div>
-			<br/>
-			<br/>
-			<div id="service-blocks">
-				<div id="service-block">Service 1</div>
-				<div id="service-block">Service 2</div>
-				<div id="service-block">Service 3</div>
-
-			</div>
-
 			<div style="margin-top: 40px;"></div>
 
 			<footer>

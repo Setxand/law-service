@@ -18,6 +18,7 @@ public class ServiceTitle {
     private Long id;
     private String title;
     private String content;
+    private String image;
     @OneToOne(mappedBy = "serviceTitle", cascade = CascadeType.ALL)
     private ServiceBody serviceBody;
 
