@@ -28,12 +28,14 @@
 		}
 
 		#service-blocks {
-			height: 180px;
+			
 			display: flex;
 			justify-content: space-between;
+			flex-wrap: wrap;
 		}
 
 		#service-block {
+			cursor: pointer;
 			opacity: 0.5;
 			height: 180px;
 			width: 320px;
@@ -53,7 +55,7 @@
 			font-size: 18px;
 		}
 		 
-		#service-block" img {
+		#service-block img {
 			height: 80px;
 			width: 80px;
 		}
@@ -69,37 +71,39 @@
 		/*<![CDATA[*/
 		$(document).ready(function() {
 			var services = [[${services}]];
-			
+			var serviceBlocks = document.createElement('div');
+			serviceBlocks.setAttribute("id","service-blocks");
+			serviceBlocks.setAttribute("style","margin-top: 50px;");
 			
 			for(var i = 0; i  < Object.keys(services).length; i++){
 			
-				var serviceBlocks = document.createElement('div');
-				serviceBlocks.setAttribute("id","service-blocks");
-				serviceBlocks.setAttribute("style","margin-top: 50px;");
+		
 				var serviceBlock = document.createElement('div');
-				for(var j=0;j<3;j++) {
 
 					
-					var serviceContent = document.createElement('div');
-					serviceContent.setAttribute("id","service-content");
-					var h3 = document.createElement('h3');
-					var p = document.createElement('p');
-					var img = document.createElement('img');
+				var serviceContent = document.createElement('div');
+				serviceContent.setAttribute("id","service-content");
+				var h3 = document.createElement('h3');
+				var p = document.createElement('p');
+				var img = document.createElement('img');
 
-					serviceBlock.setAttribute("id","service-block");
-					serviceBlock.appendChild(serviceContent);
-					serviceBlock.appendChild(img);
+				serviceContent.appendChild(h3);
+				serviceContent.appendChild(img);
 
-					h3.innerHTML = services[i].title;
-					p.innerHTML = services[i].content;
-					img.setAttribute("src",services[i].image);
-					if(j!=2)continue;
+				serviceBlock.setAttribute("id","service-block");
+				serviceBlock.appendChild(serviceContent);
+				serviceBlock.appendChild(p);
 
-				}
-
+				h3.innerHTML = services[i].title;
+				p.innerHTML = services[i].content;
+				img.setAttribute("src",services[i].image);
 				serviceBlocks.appendChild(serviceBlock);
-				document.getElementById('content-blocks').append(serviceBlocks);
+
+
+				
 			}
+
+			document.getElementById('content-blocks').append(serviceBlocks);
 
 		})	
 		 /*]]>*/
@@ -124,8 +128,46 @@
 			<div id="content-blocks">
 
 
+<!-- 
+				<div id="service-blocks" style="margin-top: 50px;">
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
+						</div>
+						<p> proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
+					</div>
 
-				<!-- <div id="service-blocks" style="margin-top: 50px;">
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
+						</div>
+						<p>Content</p>
+					</div>
+
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
+						</div>
+						<p>Content</p>
+					</div>
+
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
+						</div>
+						<p>Content</p>
+					</div>
+					
+
+				</div> -->
+
+		<!-- 		<br/>
+				<br/>
+				<div id="service-blocks">
 					<div id="service-block">
 						<div id = "service-content">
 							<h3>Service 1</h3>
@@ -133,26 +175,33 @@
 						</div>
 						<p>Content</p>
 					</div>
-					
+
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src=""/>	
+						</div>
+						<p>Content</p>
+					</div>
+
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src=""/>	
+						</div>
+						<p>Content</p>
+					</div>
+
+					<div id="service-block">
+						<div id = "service-content">
+							<h3>Service 1</h3>
+							<img src=""/>	
+						</div>
+						<p>Content</p>
+					</div>
 
 				</div>
-
-				<br/>
-				<br/>
-				<div id="service-blocks">
-					<div id="service-block">Service 1</div>
-					<div id="service-block">Service 2</div>
-					<div id="service-block">Service 3</div>
-
-				</div>
-				<br/>
-				<br/>
-				<div id="service-blocks">
-					<div id="service-block">Service 1</div>
-					<div id="service-block">Service 2</div>
-					<div id="service-block">Service 3</div>
-
-				</div> -->
+				 -->
 
 
 			</div>
