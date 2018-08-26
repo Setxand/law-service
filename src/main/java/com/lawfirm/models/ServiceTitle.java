@@ -19,10 +19,7 @@ public class ServiceTitle {
     private String title;
     private String content;
     private String image;
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
+
     @OneToOne(mappedBy = "serviceTitle", cascade = CascadeType.ALL)
     private ServiceBody serviceBody;
 

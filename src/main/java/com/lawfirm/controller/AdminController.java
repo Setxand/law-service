@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admins")
 public class AdminController {
-    @Autowired UpdateParserService updateParserService;
+    @Autowired
+    UpdateParserService updateParserService;
+
     @PostMapping
     public void getUpdate(Update update) {
         updateParserService.parseUpdate(update);

@@ -1,9 +1,8 @@
 package com.lawfirm.dto.telegram;
 
-import com.bots.lviv_croissant_bot.dto.telegram.button.Markup;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ReplyKeyboardRemove implements Markup{
+public class ReplyKeyboardRemove implements Markup {
     @JsonProperty("remove_keyboard")
     private Boolean removeKeyboard;
 

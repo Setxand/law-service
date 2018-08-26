@@ -11,7 +11,7 @@ public class LawControllerHelperService {
 	@Autowired ServiceTitleRepo serviceTitleRepo;
 
 	public Model helpParseModelForIndex(Model model) {
-		model.addAttribute("services",serviceTitleRepo.findAll());
+		model.addAttribute("services", serviceTitleRepo.findAll());
 		return model;
 	}
 }

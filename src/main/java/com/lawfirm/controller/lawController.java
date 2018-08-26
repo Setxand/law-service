@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class lawController {
-    @Autowired LawControllerHelperService lawControllerHelperService;
+public class LawController {
 
-    @GetMapping
-    public String index(Model model){
-        model = lawControllerHelperService.helpParseModelForIndex(model);
-        return "index";
-    }
+	@Autowired LawControllerHelperService lawControllerHelperService;
+
+	@GetMapping
+	public String index(Model model) {
+		model = lawControllerHelperService.helpParseModelForIndex(model);
+		return "index";
+	}
 }

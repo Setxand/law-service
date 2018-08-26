@@ -19,72 +19,52 @@
 			background: #0080ff;
 			border-bottom-right-radius: 10px;
 			border-bottom-left-radius: 10px;
-			opacity: 0.3;
+			opacity: 0.8;
 		}
 
 		footer { 
 			height: 120px;
 			background: #0080ff;
 			color:white; font-family: Roundhand, cursive ;
-			opacity: 0.3;
-		}
-
-		#service-blocks {
-			
-			display: flex;
-			justify-content: space-between;
-			flex-wrap: wrap;
-		}
-
-		#service-block {
-<<<<<<< Updated upstream
-			cursor: pointer;
-			opacity: 0.5;
-=======
-			background-color:white(255,255,255,0.6);
->>>>>>> Stashed changes
-			height: 180px;
-			width: 320px;
-			/*background: #A9A9A9;*/
-			text-align: center;
-			border-radius:10px;
-<<<<<<< Updated upstream
-=======
-			cursor: pointer;
-			
-		}
-
-		#service-block-header {
-			display: flex;
-			justify-content: space-between;
-		}
-
-		#service-block img {
-			height: 80px;
-			width: 80px;
->>>>>>> Stashed changes
-
-		}
-
-		#service-block:hover {
-			background: #6495ED;
-			opacity: 0.7;
+			opacity: 0.8;
 		}
 
 		#main-content {
 			color: white;
 			font-size: 18px;
 		}
-		 
-		#service-block img {
-			height: 80px;
-			width: 80px;
+
+		#content-block {
+			height: 160px;
+			width: 100%;
+			background: #0080ff;
+			border-radius: 5px;
+			display: flex;
+			justify-content: space-around;
+			background-color: rgba(0, 0, 0, 0.3);
+			cursor: pointer;
+			color: white;
 		}
 
-		#service-content {
-			display: flex;
-			justify-content: space-between;
+		#title-service-div {
+			font-size: 20px;
 		}
+
+		#content-block:hover {
+			font-size: 15px;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		#content-block img {
+			height: 100%;
+			width: 20%;
+		}
+
+		#cb-subc {
+			width: 80%;
+		}
+		 
+	
 	</style>
 
 
@@ -92,39 +72,43 @@
 		/*<![CDATA[*/
 		$(document).ready(function() {
 			var services = [[${services}]];
-			var serviceBlocks = document.createElement('div');
-			serviceBlocks.setAttribute("id","service-blocks");
-			serviceBlocks.setAttribute("style","margin-top: 50px;");
-			
+
+			// var contentBlocks = document.createElement('div');
+			// contentBlocks.setAttribute("id","content-blocks");
+
 			for(var i = 0; i  < Object.keys(services).length; i++){
-			
-		
-				var serviceBlock = document.createElement('div');
 
-					
-				var serviceContent = document.createElement('div');
-				serviceContent.setAttribute("id","service-content");
-				var h3 = document.createElement('h3');
-				var p = document.createElement('p');
-				var img = document.createElement('img');
+				var contentBlock = document.createElement('div');
 
-				serviceContent.appendChild(h3);
-				serviceContent.appendChild(img);
+				var img =  document.createElement('img');
 
-				serviceBlock.setAttribute("id","service-block");
-				serviceBlock.appendChild(serviceContent);
-				serviceBlock.appendChild(p);
+				var cbSubc =  document.createElement('div');
+				cbSubc.setAttribute("id", "cb-subc");
 
-				h3.innerHTML = services[i].title;
-				p.innerHTML = services[i].content;
-				img.setAttribute("src",services[i].image);
-				serviceBlocks.appendChild(serviceBlock);
-
-
+				var title =  document.createElement('div');
 				
+				var content = document.createElement('p');
+
+
+
+				contentBlock.setAttribute("id", "content-block");
+				title.setAttribute("id", "title-service-div");
+				img.setAttribute("src", services[i].image);
+
+				title.innerHTML = services[i].title;
+				content.innerHTML = services[i].content;
+
+				contentBlock.appendChild(img);
+				contentBlock.appendChild(cbSubc);
+				cbSubc.appendChild(title);
+				cbSubc.appendChild(content);
+
+				document.getElementById('content-blocks').append(document.createElement('br'));
+
+				document.getElementById('content-blocks').append(contentBlock);
+
 			}
 
-			document.getElementById('content-blocks').append(serviceBlocks);
 
 		})	
 		 /*]]>*/
@@ -146,159 +130,22 @@
 				<h2>We offer : </h2>
 				<p>Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will make relations stronger and your second half happier.Are you proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
 			</div>
+
 			<div id="content-blocks">
-
-
-<!-- 
-				<div id="service-blocks" style="margin-top: 50px;">
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
-						</div>
-						<p> proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src="https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"/>	
-						</div>
-						<p>Content</p>
-					</div>
-					
-
-				</div> -->
-
-		<!-- 		<br/>
-				<br/>
-				<div id="service-blocks">
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src=""/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src=""/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src=""/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-					<div id="service-block">
-						<div id = "service-content">
-							<h3>Service 1</h3>
-							<img src=""/>	
-						</div>
-						<p>Content</p>
-					</div>
-
-				</div>
-				 -->
-
-<<<<<<< Updated upstream
-=======
-			<div id="service-blocks" style="margin-top: 50px;">
+				<div style="margin-top: 40px;"></div>
 				
-				<div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 1</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
+			<!-- 	<div id="content-block">
+					<img src="http://www.clker.com/cliparts/4/b/7/e/12249614411469990446Japanese_Map_symbol_(Library).svg.hi.png"/>	
+					<div id="cb-subc" style="margin-left: 20px">
+						<p id = "title-service-div">Service</p>
+						<p>content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content</p>
 					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div>
->>>>>>> Stashed changes
-
-		<div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 2</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
-					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div><div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 3</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
-					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div>
+				</div> -->
+				
+	
 			</div>
-<<<<<<< Updated upstream
-=======
+				
 
-			<br/>
-			<br/>
-			<div id="service-blocks">
-				<div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 1</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
-					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div><div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 2</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
-					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div><div id="service-block">
-					<div id="service-block-header">
-						<h3>Service 3</h3>
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2Mkb16g4yZjavK---Fk93xzzBD8VS75ppG7g3CQ-6HtuTAmcQ"/>
-
-					</div>
-					<p style="font-size: 12px;">Content Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will</p>
-
-					
-				</div>
-
-			</div>
-		s
-
->>>>>>> Stashed changes
 			<div style="margin-top: 40px;"></div>
 
 			<footer>

@@ -1,6 +1,5 @@
 package com.lawfirm.dto.telegram;
 
-import com.bots.lviv_croissant_bot.constantEnum.Platform;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -21,6 +20,6 @@ public class Message {
     private Chat chat;
     private String text;
     private Platform platform;
-    private List<TelegramEntity>entities;
+    private List<TelegramEntity> entities;
 
 }
