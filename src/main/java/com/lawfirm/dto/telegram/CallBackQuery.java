@@ -12,7 +12,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CallBackQuery {
     private Long id;
-    private User from;
+    private UserDTO from;
     private Message message;
     @JsonProperty("chat_instance")
     private Long chatInstance;

@@ -15,7 +15,7 @@ import java.util.List;
 public class Message {
     @JsonProperty("message_id")
     private Integer messageId;
-    private User from;
+    private UserDTO from;
     private Integer date;
     private Chat chat;
     private String text;

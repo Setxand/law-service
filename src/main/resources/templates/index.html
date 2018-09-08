@@ -73,8 +73,7 @@
 		$(document).ready(function() {
 			var services = [[${services}]];
 
-			// var contentBlocks = document.createElement('div');
-			// contentBlocks.setAttribute("id","content-blocks");
+			$('#title-text').text([[${titleText}]]);
 
 			for(var i = 0; i  < Object.keys(services).length; i++){
 
@@ -128,7 +127,7 @@
 
 			<div id="main-content">
 				<h2>We offer : </h2>
-				<p>Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will make relations stronger and your second half happier.Are you proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
+				<p id="title-text">Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will make relations stronger and your second half happier.Are you proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
 			</div>
 
 			<div id="content-blocks">

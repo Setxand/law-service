@@ -1,4 +1,4 @@
-package com.lawfirm.models;
+package com.lawfirm.models.lawProject;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

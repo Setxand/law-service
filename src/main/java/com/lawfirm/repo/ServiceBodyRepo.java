@@ -1,6 +1,6 @@
 package com.lawfirm.repo;
 
-import com.lawfirm.models.ServiceBody;
+import com.lawfirm.model.lawProject.ServiceBody;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
