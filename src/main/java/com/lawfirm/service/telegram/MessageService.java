@@ -4,7 +4,7 @@ import com.lawfirm.dto.telegram.Message;
 import com.lawfirm.dto.telegram.TelegramEntity;
 import com.lawfirm.model.lawProject.EditableComponent;
 import com.lawfirm.model.telegram.User;
-import com.lawfirm.repo.EditableComponentRepository;
+import com.lawfirm.reposiory.EditableComponentRepository;
 import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -27,41 +27,54 @@ public class MessageService {
 	}
 
 	public void parseMessage(Message message) {
-		User user = null;
-		if(message.getText().equals("/start")) {
-			botCommandService.parseBotCommand(message);
 
+	    if(message.getText() != null) {
+			if(message.getText().equals("/start")) {
+
+                botCommandService.parseBotCommand(message);
+            }
+
+            else {
+                notStart(message);
+            }
 		}
 		else {
-			user = userService.getUser(message.getChat().getId());
-			if (user.getStatus() != null)
-				userStatus(message, user);
-
-			else if (message.getEntities() != null) {
-				List<TelegramEntity> entities = message.getEntities();
-				for (TelegramEntity telegramEntity : entities) {
-					if (telegramEntity.getType().equals("url")) {
-						checkingByStatus(message);
-						break;
-					}
-					botCommandService.parseBotCommand(message);
-				}
-				return;
-			}
-			checkingByStatus(message);
-		}
-
+		    notStart(message);
+        }
 	}
 
-	private void userStatus(Message message, User user) {
+    private void notStart(Message message) {
+	    User user = userService.getUser(message.getChat().getId());
+        if (user.getStatus() != null)
+            userStatus(message, user);
+
+        else if (message.getEntities() != null) {
+            List<TelegramEntity> entities = message.getEntities();
+            for (TelegramEntity telegramEntity : entities) {
+                if (telegramEntity.getType().equals("url")) {
+                    checkingByStatus(message);
+                    break;
+                }
+                botCommandService.parseBotCommand(message);
+            }
+            return;
+        }
+        checkingByStatus(message);
+    }
+
+    private void userStatus(Message message, User user) {
 		switch (user.getStatus()) {
 			case "SETTING_TITLE" : settingTitle(message, user);break;
 			case "NEW_SERVICE_NAME" : commandHelper.helpAddNewService(message);break;
+            case "NEW_SERVICE_DESCRIPTION" : commandHelper.helpAddNewService(message);break;
+            case "NEW_SERVICE_IMAGE" : commandHelper.helpAddNewService(message);break;
 		}
 	}
 
 	public void settingTitle(Message message, User user) {
-		EditableComponent editableComponent = editableComponentRepo.findByComponentKey("TITLE");
+		EditableComponent editableComponent = editableComponentRepo.findByComponentKey("TITLE")
+				.orElseGet(() -> new EditableComponent("TITLE", "Hi!"));
+
 		editableComponent.setValue(message.getText());
 		editableComponentRepo.saveAndFlush(editableComponent);
 		user.setStatus(null);

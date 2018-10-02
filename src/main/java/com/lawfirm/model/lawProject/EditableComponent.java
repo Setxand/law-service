@@ -16,7 +16,13 @@ import javax.persistence.Id;
 public class EditableComponent {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	private String componentKey;
 	private String value;
+
+	public EditableComponent(String componentKey, String value) {
+		this.componentKey = componentKey;
+		this.value = value;
+	}
 }

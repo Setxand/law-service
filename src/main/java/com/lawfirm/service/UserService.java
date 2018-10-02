@@ -1,7 +1,8 @@
 package com.lawfirm.service;
 
+import com.lawfirm.exception.BotException;
 import com.lawfirm.model.telegram.User;
-import com.lawfirm.repo.UserRepository;
+import com.lawfirm.reposiory.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public class UserService {
 	}
 
 	public User getUser(Integer chatId) {
-		return userRepo.findByChatId(chatId).orElseThrow(() -> new RuntimeException("Invalid chat ID"));
+		return userRepo.findByChatId(chatId).orElseThrow(() -> new BotException(chatId, "Invalid chat ID"));
 	}
 
 	public User getOrNew(Integer chatId) {

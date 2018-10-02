@@ -16,6 +16,7 @@ public class ServiceTitle {
     @GeneratedValue
     private Long id;
     private String title;
+    @Column(length = 1024)
     private String content;
     private String image;
 

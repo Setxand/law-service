@@ -3,7 +3,7 @@ package com.lawfirm.service.telegram;
 import com.lawfirm.dto.telegram.Message;
 import com.lawfirm.dto.telegram.TelegramRequest;
 import com.lawfirm.model.telegram.User;
-import com.lawfirm.repo.EditableComponentRepository;
+import com.lawfirm.reposiory.EditableComponentRepository;
 import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

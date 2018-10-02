@@ -15,9 +15,8 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class User {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	private String id;
+	@GeneratedValue
+	private Long id;
 	private String status;
 	private Integer chatId;
 }
