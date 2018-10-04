@@ -16,7 +16,6 @@
 
 			$('#h1id').html(serviceBody.title);
 			$('#pid').html(serviceBody.body);
-			updateHistory(window.location.href);
 		})
 
 		/*]]>*/
@@ -25,10 +24,39 @@
 			location.reload();
 		}
 
-		function updateHistory(curr) {
- 	   		window.location.lasthash.push(window.location.hash);
-   		 	window.location.hash = curr;
-		}
+
+
+			window.onload = function () {
+			    if (typeof history.pushState === "function") {
+			        history.pushState("jibberish", null, null);
+			        window.onpopstate = function () {
+			            history.pushState('newjibberish', location.reload(), null);
+			            // Handle the back (or forward) buttons here
+			            // Will NOT handle refresh, use onbeforeunload for this.
+			            
+
+
+			        };
+			    }
+		    else {
+		        var ignoreHashChange = true;
+			        window.onhashchange = function () {
+			            if (!ignoreHashChange) {
+			                ignoreHashChange = true;
+			                window.location.hash = Math.random();
+			                // Detect and redirect change here
+			                // Works in older FF and IE9
+			                // * it does mess with your hash symbol (anchor?) pound sign
+			                // delimiter on the end of the URL
+			              	location.reload();
+
+			            }
+			            else {
+			                ignoreHashChange = false;   
+			            }
+			        };
+		    	}
+			}	
 
 	</script>
 	<div class="container">

@@ -65,9 +65,10 @@ public class MessageService {
     private void userStatus(Message message, User user) {
 		switch (user.getStatus()) {
 			case "SETTING_TITLE" : settingTitle(message, user);break;
-			case "NEW_SERVICE_NAME" : commandHelper.helpAddNewService(message);break;
-            case "NEW_SERVICE_DESCRIPTION" : commandHelper.helpAddNewService(message);break;
-            case "NEW_SERVICE_IMAGE" : commandHelper.helpAddNewService(message);break;
+			case "NEW_SERVICE_NAME" : commandHelper.helpAddNewService(message); break;
+            case "NEW_SERVICE_DESCRIPTION" : commandHelper.helpAddNewService(message); break;
+            case "NEW_SERVICE_IMAGE" : commandHelper.helpAddNewService(message); break;
+			case "ARTICLE_CONTENT" : commandHelper.helpSetArticle(message, user); break;
 		}
 	}
 
