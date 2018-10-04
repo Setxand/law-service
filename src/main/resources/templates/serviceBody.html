@@ -1,0 +1,57 @@
+
+	<style>
+		#h1id {
+			color:white;
+		}
+
+		#pid {
+			color:white;
+		}z
+	</style>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		$(document).ready(function() {
+
+			var serviceBody = [[${serviceBody}]];
+
+			$('#h1id').html(serviceBody.title);
+			$('#pid').html(serviceBody.body);
+			updateHistory(window.location.href);
+		})
+
+		/*]]>*/
+
+		function backToHome() {
+			location.reload();
+		}
+
+		function updateHistory(curr) {
+ 	   		window.location.lasthash.push(window.location.hash);
+   		 	window.location.hash = curr;
+		}
+
+	</script>
+	<div class="container">
+		
+		<header>
+			<h1 style="color:white; font-family: Roundhand, cursive ; margin-left: 200px;">Paliichuk and partners</h1>	
+		</header>
+		<button id="backButton", onclick="backToHome()">home</button>
+		<div style="margin-top: 40px;"></div>	
+
+	    <h1 id="h1id"></h1>
+	    <p id="pid"></p>
+
+
+		<div style="margin-top: 40px;"></div>
+
+		<footer>
+			<h3>Contacts: </h3>
+				<ul>
+					<li>+380981112898</li>
+					<li>+380983809181</li>
+					<li>+380989898367</li>
+				</ul>
+		</footer>
+
+	</div>

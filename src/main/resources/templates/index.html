@@ -94,6 +94,7 @@
 
 
 				contentBlock.setAttribute("id", "content-block");
+				contentBlock.setAttribute("onclick", "getId(" + services[i].id + ")");
 				title.setAttribute("id", "title-service-div");
 				img.setAttribute("src", services[i].image);
 
@@ -113,13 +114,16 @@
 
 
 		})	
+		function getId(i) {
+			$.ajax({
+				url : "/lawfirm/users/" + i + "/service-bodies",
+				method : 'GET',
+				success: function(result){
+     		  		$('body').html(result);
+    			}
+			});
+		}
 		 /*]]>*/
-
-		$(document).ready(function() {
-			$('#content-block').click(function() {
-					alert("ff");
-				})
-		})
 	</script>
 	
 
