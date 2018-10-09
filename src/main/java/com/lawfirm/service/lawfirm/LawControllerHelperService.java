@@ -1,11 +1,13 @@
 package com.lawfirm.service.lawfirm;
 
+import com.lawfirm.dto.ServiceBodyDTO;
 import com.lawfirm.exception.BotException;
 import com.lawfirm.model.lawProject.EditableComponent;
 import com.lawfirm.model.lawProject.ServiceBody;
 import com.lawfirm.reposiory.EditableComponentRepository;
 import com.lawfirm.reposiory.ServiceBodyRepo;
 import com.lawfirm.reposiory.ServiceTitleRepo;
+import com.lawfirm.utils.DtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -28,11 +30,11 @@ public class LawControllerHelperService {
 		return model;
 	}
 
-    public void helpLoadServiceBody(String titleId, ModelAndView model) {
-		ServiceBody serviceBody = serviceBodyRepo
-				.findById(Long.parseLong(titleId)).orElseThrow(() -> new IllegalArgumentException("Invalid title ID"));
-
-		model.addObject("serviceBody", serviceBody);
-		model.setViewName("serviceBody");
+    public ServiceBodyDTO helpLoadServiceBody(String titleId) {
+		ServiceBody serviceBody =  serviceBodyRepo
+				.findById(Long.parseLong(titleId))
+													.orElseThrow(() -> new IllegalArgumentException("Invalid title ID"));
+		ServiceBodyDTO dto =  DtoUtils.serviceBody(serviceBody);
+		return dto;
     }
 }

@@ -14,6 +14,7 @@ public class ServiceBody {
     @Id
     private Long id;
     private String title;
-    @Column(length = 10000  )
+    @Column(length = 10000)
     private String body;
+    private String image;
 }
