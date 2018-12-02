@@ -14,18 +14,24 @@ import org.springframework.ui.Model;
 @Service
 public class LawControllerHelperService {
 
-	@Autowired ServiceTitleRepo serviceTitleRepo;
-	@Autowired EditableComponentRepository editableComponentRepo;
-	@Autowired ServiceBodyRepo serviceBodyRepo;
+	private final ServiceTitleRepo serviceTitleRepo;
+	private final EditableComponentRepository editableComponentRepo;
+	private final ServiceBodyRepo serviceBodyRepo;
 
-	public Model helpParseModelForIndex(Model model) {
+	@Autowired
+	public LawControllerHelperService(ServiceTitleRepo serviceTitleRepo, EditableComponentRepository editableComponentRepo, ServiceBodyRepo serviceBodyRepo) {
+		this.serviceTitleRepo = serviceTitleRepo;
+		this.editableComponentRepo = editableComponentRepo;
+		this.serviceBodyRepo = serviceBodyRepo;
+	}
+
+	public void helpParseModelForIndex(Model model) {
 		EditableComponent editableComponent = editableComponentRepo.findByComponentKey("TITLE")
 				.orElseGet(() -> new EditableComponent("TITLE", "empty title!"));
 
 		model.addAttribute("titleText", editableComponent.getValue());
 
 		model.addAttribute("services", serviceTitleRepo.findAll());
-		return model;
 	}
 
 	public ServiceBodyDTO helpLoadServiceBody(String titleId) {

@@ -1,14 +1,10 @@
 package com.lawfirm.dto.telegram.button;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class KeyboardMarkup implements Markup {
 	private List<List<KeyboardButton>> keyboard;
 

@@ -1,13 +1,9 @@
 package com.lawfirm.dto.telegram.button;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class KeyboardButton implements Button {
 	private String text;

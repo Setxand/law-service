@@ -2,15 +2,11 @@ package com.lawfirm.dto.telegram;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Message {
 	@JsonProperty("message_id")

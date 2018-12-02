@@ -1,17 +1,13 @@
 package com.lawfirm.model.lawProject;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class EditableComponent {
 
 	@Id

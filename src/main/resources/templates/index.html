@@ -1,71 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-	<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
-	<script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-	<title>Home page</title>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <title>Home page</title>
 </head>
 <style type="text/css">
 
-	body {
-		background-image: url("http://wallpaperstock.net/storm-clouds_wallpapers_34797_1920x1080.jpg");
-	}
+    body {
+        background-image: url("http://wallpaperstock.net/storm-clouds_wallpapers_34797_1920x1080.jpg");
+    }
 
-	header {
-		height: 55px;
-		background: #0080ff;
-		border-bottom-right-radius: 10px;
-		border-bottom-left-radius: 10px;
-		opacity: 0.8;
-	}
+    header {
+        height: 55px;
+        background: #0080ff;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        opacity: 0.8;
+    }
 
-	footer {
-		height: 120px;
-		background: #0080ff;
-		color:white; font-family: Roundhand, cursive ;
-		opacity: 0.8;
-	}
+    footer {
+        height: 120px;
+        background: #0080ff;
+        color: white;
+        font-family: Roundhand, cursive;
+        opacity: 0.8;
+    }
 
-	#main-content {
-		color: white;
-		font-size: 18px;
-	}
+    #main-content {
+        color: white;
+        font-size: 18px;
+    }
 
-	#content-block {
-		height: 160px;
-		width: 100%;
-		background: #0080ff;
-		border-radius: 5px;
-		display: flex;
-		justify-content: space-around;
-		background-color: rgba(0, 0, 0, 0.3);
-		cursor: pointer;
-		color: white;
-	}
+    #content-block {
+        height: 160px;
+        width: 100%;
+        background: #0080ff;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-around;
+        background-color: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        color: white;
+    }
 
-	#title-service-div {
-		font-size: 20px;
-	}
+    #title-service-div {
+        font-size: 20px;
+    }
 
-	#content-block:hover {
-		font-size: 15px;
-		background-color: rgba(0, 0, 0, 0.5);
-	}
+    #content-block:hover {
+        font-size: 15px;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 
-	#content-block img {
-		height: 100%;
-		width: 20%;
-		border-radius: 4px;
-		opacity: 0.7;
-	}
+    #content-block img {
+        height: 100%;
+        width: 20%;
+        border-radius: 4px;
+        opacity: 0.7;
+    }
 
-	#cb-subc {
-		width: 80%;
-		margin-left: 20px;
-	}
+    #cb-subc {
+        width: 80%;
+        margin-left: 20px;
+    }
 
 
 </style>
@@ -73,24 +74,23 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(document).ready(function() {
+    $(document).ready(function () {
         var services = [[${services}]];
 
         $('#title-text').text([[${titleText}]]);
 
-        for(var i = 0; i  < Object.keys(services).length; i++){
+        for (var i = 0; i < Object.keys(services).length; i++) {
 
             var contentBlock = document.createElement('div');
 
-            var img =  document.createElement('img');
+            var img = document.createElement('img');
 
-            var cbSubc =  document.createElement('div');
+            var cbSubc = document.createElement('div');
             cbSubc.setAttribute("id", "cb-subc");
 
-            var title =  document.createElement('div');
+            var title = document.createElement('div');
 
             var content = document.createElement('p');
-
 
 
             contentBlock.setAttribute("id", "content-block");
@@ -114,16 +114,18 @@
 
 
     })
+
     function getId(i) {
         $.ajax({
-            url : "/lawfirm/users/" + i + "/service-bodies",
-            method : 'GET',
-            success: function(result){
+            url: "/lawfirm/users/" + i + "/service-bodies",
+            method: 'GET',
+            success: function (result) {
                 $('body').html(result);
 
             }
         });
     }
+
     /*]]>*/
 </script>
 
@@ -131,21 +133,25 @@
 <body>
 <div class="container">
 
-	<header>
-		<h1 style="color:white; font-family: Roundhand, cursive ; margin-left: 200px;">Paliichuk and partners</h1>
-	</header>
+    <header>
+        <h1 style="color:white; font-family: Roundhand, cursive ; margin-left: 200px;">Paliichuk and partners</h1>
+    </header>
 
-	<div style="margin-top: 40px;"></div>
+    <div style="margin-top: 40px;"></div>
 
-	<div id="main-content">
-		<h2>We offer : </h2>
-		<p id="title-text">Compliments are an important part of a relationship, any woman blooms when she hears how beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you admire her. Your constant attention will make relations stronger and your second half happier.Are you proud to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her know about it via sending you are so beautiful quotes, submitted below.</p>
-	</div>
+    <div id="main-content">
+        <h2>We offer : </h2>
+        <p id="title-text">Compliments are an important part of a relationship, any woman blooms when she hears how
+            beautiful she is. Be loving and caring, never miss the chance to tell her that she is beautiful and that you
+            admire her. Your constant attention will make relations stronger and your second half happier.Are you proud
+            to have her by your side? Do you become speechless when you look at her and her beauty strikes you? Let her
+            know about it via sending you are so beautiful quotes, submitted below.</p>
+    </div>
 
-	<div id="content-blocks">
-		<div style="margin-top: 40px;"></div>
+    <div id="content-blocks">
+        <div style="margin-top: 40px;"></div>
 
-		<!-- 	<div id="content-block">
+        <!-- 	<div id="content-block">
                 <img src="http://www.clker.com/cliparts/4/b/7/e/12249614411469990446Japanese_Map_symbol_(Library).svg.hi.png"/>
                 <div id="cb-subc" style="margin-left: 20px">
                     <p id = "title-service-div">Service</p>
@@ -154,19 +160,19 @@
             </div> -->
 
 
-	</div>
+    </div>
 
 
-	<div style="margin-top: 40px;"></div>
+    <div style="margin-top: 40px;"></div>
 
-	<footer>
-		<h3>Contacts: </h3>
-		<ul>
-			<li>+380981112898</li>
-			<li>+380983809181</li>
-			<li>+380989898367</li>
-		</ul>
-	</footer>
+    <footer>
+        <h3>Contacts: </h3>
+        <ul>
+            <li>+380981112898</li>
+            <li>+380983809181</li>
+            <li>+380989898367</li>
+        </ul>
+    </footer>
 
 </div>
 </body>

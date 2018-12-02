@@ -1,15 +1,11 @@
 package com.lawfirm.dto.telegram.button;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class InlineKeyboardMarkup implements Markup {
 	@JsonProperty("inline_keyboard")
 	private List<List<InlineKeyboardButton>> inlineKeyBoard;
