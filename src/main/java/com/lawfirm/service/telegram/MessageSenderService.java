@@ -1,5 +1,6 @@
 package com.lawfirm.service.telegram;
 
+import com.lawfirm.config.TelegramConfig;
 import com.lawfirm.dto.telegram.*;
 import com.lawfirm.dto.telegram.button.InlineKeyboardButton;
 import com.lawfirm.dto.telegram.button.InlineKeyboardMarkup;
@@ -18,15 +19,17 @@ import java.util.ResourceBundle;
 @Service
 public class MessageSenderService {
 
-
-    @Value("${telegram.url}")
-    private String TELEGRAM_URL;
     @Value("${server.url}")
     private String SERVER_URL;
+    private final TelegramConfig telegramConfig;
+
+    public MessageSenderService(TelegramConfig telegramConfig) {
+        this.telegramConfig = telegramConfig;
+    }
 
     public void sendMessage(TelegramRequest telegramRequest) {
         try {
-            new RestTemplate().postForEntity(TELEGRAM_URL + "/sendMessage", telegramRequest, Void.class);
+            new RestTemplate().postForEntity(telegramConfig.getBotUrl() + "/sendMessage", telegramRequest, Void.class);
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -68,7 +71,7 @@ public class MessageSenderService {
     }
 
     public void sendPhoto( String photo, String caption,Markup markup, Message message) {
-        new RestTemplate().postForEntity(TELEGRAM_URL + "/sendPhoto",new TelegramRequest(message.getChat().getId(),markup,photo,caption),Void.class);
+        new RestTemplate().postForEntity(telegramConfig.getBotUrl() + "/sendPhoto",new TelegramRequest(message.getChat().getId(),markup,photo,caption),Void.class);
     }
 
     public void sendActions(Message message) {

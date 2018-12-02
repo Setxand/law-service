@@ -11,6 +11,8 @@ import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.lawfirm.model.telegram.UserStatus.*;
+
 @Service
 public class BotCommandServiceHelper {
 
@@ -29,13 +31,13 @@ public class BotCommandServiceHelper {
 		User user = userService.getUser(message.getChat().getId());
 
 		switch (user.getStatus()) {
-			case "NEW_SERVICE_NAME" :
+			case NEW_SERVICE_NAME :
 				newServiceName(message, user);
 				break;
-			case "NEW_SERVICE_DESCRIPTION" :
+			case NEW_SERVICE_DESCRIPTION :
 				newServiceDescription(message, user);
 				break;
-			case "NEW_SERVICE_IMAGE" :
+			case NEW_SERVICE_IMAGE :
 				newServiceImage(message, user);
 				break;
 		}
@@ -47,7 +49,7 @@ public class BotCommandServiceHelper {
 		serviceTitle.setImage(message.getText());
 		serviceTitleRepo.saveAndFlush(serviceTitle);
 
-		user.setStatus("ARTICLE_CONTENT");
+		user.setStatus(ARTICLE_CONTENT);
 		userService.save(user);
 		senderService.simpleMessage("Enter the content of the article (10000 symbols) : ", message);
 
@@ -60,7 +62,7 @@ public class BotCommandServiceHelper {
 	private void newServiceDescription(Message message, User user) {
 		ServiceTitle serviceTitle = serviceTitleRepo.findTopByOrderByIdDesc();
 		serviceTitle.setContent(message.getText());
-		user.setStatus("NEW_SERVICE_IMAGE");
+		user.setStatus(NEW_SERVICE_IMAGE);
 		senderService.simpleMessage("Add image : ", message);
 
 		serviceTitleRepo.saveAndFlush(serviceTitle);
@@ -72,7 +74,7 @@ public class BotCommandServiceHelper {
 		serviceTitle.setTitle(message.getText());
 		serviceTitleRepo.save(serviceTitle);
 		senderService.simpleMessage("Enter description : ", message);
-		user.setStatus("NEW_SERVICE_DESCRIPTION");
+		user.setStatus(NEW_SERVICE_DESCRIPTION);
 		userService.save(user);
 	}
 

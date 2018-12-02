@@ -14,11 +14,11 @@ public class UserService {
 	}
 
 	public User getUser(Integer chatId) {
-		return userRepo.findByChatId(chatId).orElseThrow(() -> new BotException(chatId, "Invalid chat ID"));
+		return userRepo.findById(chatId).orElseThrow(() -> new BotException(chatId, "Invalid chat ID"));
 	}
 
 	public User getOrNew(Integer chatId) {
-		return userRepo.findByChatId(chatId).orElseGet(() -> new User());
+		return userRepo.findById(chatId).orElseGet(User::new);
 	}
 
 	public void save(User user) {

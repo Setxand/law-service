@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ResourceBundle;
 
+import static com.lawfirm.model.telegram.UserStatus.NEW_SERVICE_NAME;
+import static com.lawfirm.model.telegram.UserStatus.SETTING_TITLE;
+
 @Service
 public class BotCommandService {
 	private final EditableComponentRepository editableComponentRepo;
@@ -45,7 +48,7 @@ public class BotCommandService {
 	@Transactional
 	public void newService(Message message) {
 		User user = userService.getUser(message.getChat().getId());
-		user.setStatus("NEW_SERVICE_NAME");
+		user.setStatus(NEW_SERVICE_NAME);
 		userService.save(user);
 		senderService.simpleMessage("Enter name of the new service : ", message);
 	}
@@ -65,7 +68,7 @@ public class BotCommandService {
 	public void changeTitle(Message message) {
 		senderService.sendMessage(new TelegramRequest("Enter a new title : ", message.getChat().getId()));
 		User user = userService.getUser(message.getChat().getId());
-		user.setStatus("SETTING_TITLE");
+		user.setStatus(SETTING_TITLE);
 		userService.save(user);
 	}
 
