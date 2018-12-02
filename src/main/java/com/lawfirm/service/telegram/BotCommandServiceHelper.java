@@ -20,6 +20,7 @@ public class BotCommandServiceHelper {
 	private final MessageSenderService senderService;
 	private final ServiceTitleRepo serviceTitleRepo;
 	private final ServiceBodyRepo serviceBodyRepo;
+
 	public BotCommandServiceHelper(UserService userService, MessageSenderService senderService, ServiceTitleRepo serviceTitleRepo, ServiceBodyRepo serviceBodyRepo) {
 		this.userService = userService;
 		this.senderService = senderService;
@@ -31,13 +32,13 @@ public class BotCommandServiceHelper {
 		User user = userService.getUser(message.getChat().getId());
 
 		switch (user.getStatus()) {
-			case NEW_SERVICE_NAME :
+			case NEW_SERVICE_NAME:
 				newServiceName(message, user);
 				break;
-			case NEW_SERVICE_DESCRIPTION :
+			case NEW_SERVICE_DESCRIPTION:
 				newServiceDescription(message, user);
 				break;
-			case NEW_SERVICE_IMAGE :
+			case NEW_SERVICE_IMAGE:
 				newServiceImage(message, user);
 				break;
 		}
@@ -59,6 +60,23 @@ public class BotCommandServiceHelper {
 		serviceBodyRepo.saveAndFlush(body);
 	}
 
+	@Transactional
+	public void helpSetArticle(Message message, User user) {
+
+		if (message.getText().length() > 10000) {
+			throw new BotException(message.getChat().getId(), "Too large content, need no more, than 10000 symbols");
+		}
+		ServiceBody body = serviceBodyRepo.findTopByOrderByIdDesc()
+				.orElseThrow(() -> new BotException(message.getChat().getId(), "failed to load content"));
+
+		body.setBody(message.getText());
+		serviceBodyRepo.saveAndFlush(body);
+		user.setStatus(null);
+		userService.save(user);
+
+		senderService.simpleMessage("Service successfully added", message);
+	}
+
 	private void newServiceDescription(Message message, User user) {
 		ServiceTitle serviceTitle = serviceTitleRepo.findTopByOrderByIdDesc();
 		serviceTitle.setContent(message.getText());
@@ -76,22 +94,5 @@ public class BotCommandServiceHelper {
 		senderService.simpleMessage("Enter description : ", message);
 		user.setStatus(NEW_SERVICE_DESCRIPTION);
 		userService.save(user);
-	}
-
-	@Transactional
-	public void helpSetArticle(Message message, User user) {
-
-		if (message.getText().length() > 10000) {
-			throw new BotException(message.getChat().getId(), "Too large content, need no more, than 10000 symbols");
-		}
-		ServiceBody body = serviceBodyRepo.findTopByOrderByIdDesc()
-							.orElseThrow(() -> new BotException(message.getChat().getId(), "failed to load content"));
-
-		body.setBody(message.getText());
-		serviceBodyRepo.saveAndFlush(body);
-		user.setStatus(null);
-		userService.save(user);
-
-		senderService.simpleMessage("Service successfully added", message);
 	}
 }

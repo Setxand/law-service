@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
-    @Autowired MessageSenderService senderService;
+	@Autowired MessageSenderService senderService;
 
-    @ExceptionHandler(BotException.class)
-    public void internalError(final BotException e) {
-        senderService.sendMessage(new TelegramRequest(e.getMessage(), e.getChatId()));
-    }
+	@ExceptionHandler(BotException.class)
+	public void internalError(final BotException e) {
+		senderService.sendMessage(new TelegramRequest(e.getMessage(), e.getChatId()));
+	}
 }

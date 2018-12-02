@@ -1,83 +1,85 @@
 
-	<style>
-		#h1id {
-			color:white;
-		}
+<style>
+	#h1id {
+		color:white;
+	}
 
-		#pid {
-			color:white;
-		}z
-	</style>
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-		$(document).ready(function() {
+	#pid {
+		color:white;
+	}z
+</style>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
 
-			var serviceBody = [[${serviceBody}]];
+        var serviceBody = [[${serviceBody}]];
 
-			$('#h1id').html(serviceBody.title);
-			$('#pid').html(serviceBody.body);
-		})
+        $('#h1id').html(serviceBody.title);
+        $('#pid').html(serviceBody.body);
+    })
 
-		/*]]>*/
+    /*]]>*/
 
-		function backToHome() {
-			location.reload();
-		}
-
-
-
-			// window.onload = function () {
-			//     if (typeof history.pushState === "function") {
-			//         history.pushState("jibberish", null, null);
-			//         window.onpopstate = function () {
-			//             history.pushState('newjibberish', null, null);
-			//             // Handle the back (or forward) buttons here
-			//             // Will NOT handle refresh, use onbeforeunload for this.
-			            
-			//         };
-			//     }
-		 //    else {
-		 //        var ignoreHashChange = true;
-			//         window.onhashchange = function () {
-			//             if (!ignoreHashChange) {
-			//                 ignoreHashChange = true;
-			//                 window.location.hash = Math.random();
-			//                 // Detect and redirect change here
-			//                 // Works in older FF and IE9
-			//                 // * it does mess with your hash symbol (anchor?) pound sign
-			//                 // delimiter on the end of the URL
-			              	
-
-			//             }
-			//             else {
-			//                 ignoreHashChange = false;   
-			//             }
-			//         };
-		 //    	}
-			// }	
-
-	</script>
-	<div class="container">
-		
-		<header>
-			<h1 style="color:white; font-family: Roundhand, cursive ; margin-left: 200px;">Paliichuk and partners</h1>	
-		</header>
-		<button id="backButton", onclick="backToHome()">home</button>
-		<div style="margin-top: 40px;"></div>	
-
-	    <h1 id="h1id"></h1>
-	    <p id="pid"></p>
+    function backToHome() {
+        location.reload();
+    }
 
 
-		<div style="margin-top: 40px;"></div>
 
-		<footer>
-			<h3>Contacts: </h3>
-				<ul>
-					<li>+380981112898</li>
-					<li>+380983809181</li>
-					<li>+380989898367</li>
-				</ul>
-		</footer>
+    window.onload = function () {
+        if (typeof history.pushState === "function") {
+            history.pushState("jibberish", null, null);
+            window.onpopstate = function () {
+                history.pushState('newjibberish', location.reload(), null);
+                // Handle the back (or forward) buttons here
+                // Will NOT handle refresh, use onbeforeunload for this.
 
-	</div>
+
+
+            };
+        }
+        else {
+            var ignoreHashChange = true;
+            window.onhashchange = function () {
+                if (!ignoreHashChange) {
+                    ignoreHashChange = true;
+                    window.location.hash = Math.random();
+                    // Detect and redirect change here
+                    // Works in older FF and IE9
+                    // * it does mess with your hash symbol (anchor?) pound sign
+                    // delimiter on the end of the URL
+                    location.reload();
+
+                }
+                else {
+                    ignoreHashChange = false;
+                }
+            };
+        }
+    }
+
+</script>
+<div class="container">
+
+	<header>
+		<h1 style="color:white; font-family: Roundhand, cursive ; margin-left: 200px;">Paliichuk and partners</h1>
+	</header>
+	<button id="backButton", onclick="backToHome()">home</button>
+	<div style="margin-top: 40px;"></div>
+
+	<h1 id="h1id"></h1>
+	<p id="pid"></p>
+
+
+	<div style="margin-top: 40px;"></div>
+
+	<footer>
+		<h3>Contacts: </h3>
+		<ul>
+			<li>+380981112898</li>
+			<li>+380983809181</li>
+			<li>+380989898367</li>
+		</ul>
+	</footer>
+
+</div>

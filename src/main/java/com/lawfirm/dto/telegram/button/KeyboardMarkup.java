@@ -10,10 +10,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class KeyboardMarkup implements Markup {
-    private List<List<KeyboardButton>> keyboard;
+	private List<List<KeyboardButton>> keyboard;
 
-    public KeyboardMarkup(List<List<KeyboardButton>> keyboard) {
-        this.keyboard = keyboard;
-    }
+	public KeyboardMarkup(List<List<KeyboardButton>> keyboard) {
+		this.keyboard = keyboard;
+	}
 }
 

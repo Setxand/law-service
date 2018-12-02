@@ -17,12 +17,11 @@ import javax.annotation.PostConstruct;
 @Component
 public class TelegramStarting {
 
-	@Value("${server.url}")
-	private String SERVER_URL;
+	private static final Logger logger = Logger.getLogger(TelegramStarting.class);
 	private final UserService userService;
 	private final TelegramConfig telegramConfig;
-
-	private static final Logger logger = Logger.getLogger(TelegramStarting.class);
+	@Value("${server.url}")
+	private String SERVER_URL;
 
 	@Autowired
 	public TelegramStarting(UserService userService, TelegramConfig telegramConfig) {
@@ -34,7 +33,7 @@ public class TelegramStarting {
 	public void getStarted() {
 
 		try {
-			ResponseEntity<?> responseEntity = new RestTemplate().getForEntity( telegramConfig.getBotUrl()+ "/setWebhook?url=" + SERVER_URL + "/admins", Object.class);
+			ResponseEntity<?> responseEntity = new RestTemplate().getForEntity(telegramConfig.getBotUrl() + "/setWebhook?url=" + SERVER_URL + "/admins", Object.class);
 			logger.debug("Telegram`s bot webhook: " + responseEntity.getBody());
 
 		} catch (Exception e) {

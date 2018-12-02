@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ServiceTitleRepo extends JpaRepository<ServiceTitle, Long> {
 
-    ServiceTitle findTopByOrderByIdDesc();
+	ServiceTitle findTopByOrderByIdDesc();
 
 }

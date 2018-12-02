@@ -11,10 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CallBackQuery {
-    private Long id;
-    private UserDTO from;
-    private Message message;
-    @JsonProperty("chat_instance")
-    private Long chatInstance;
-    private String data;
+	private Long id;
+	private UserDTO from;
+	private Message message;
+	@JsonProperty("chat_instance")
+	private Long chatInstance;
+	private String data;
 }

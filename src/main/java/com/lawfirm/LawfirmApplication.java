@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(TelegramConfig.class)
 public class LawfirmApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(LawfirmApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(LawfirmApplication.class, args);
+	}
 }

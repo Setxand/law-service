@@ -3,10 +3,10 @@ package com.lawfirm.dto.telegram;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ReplyKeyboardRemove implements Markup {
-    @JsonProperty("remove_keyboard")
-    private Boolean removeKeyboard;
+	@JsonProperty("remove_keyboard")
+	private Boolean removeKeyboard;
 
-    public ReplyKeyboardRemove(Boolean removeKeyboard) {
-        this.removeKeyboard = removeKeyboard;
-    }
+	public ReplyKeyboardRemove(Boolean removeKeyboard) {
+		this.removeKeyboard = removeKeyboard;
+	}
 }

@@ -31,15 +31,15 @@ public class BotCommandService {
 	public void parseBotCommand(Message message) {
 		switch (message.getText()) {
 
-			case "/start" :
+			case "/start":
 				start(message);
 				break;
 
-			case "/changetitle" :
+			case "/changetitle":
 				changeTitle(message);
 				break;
-				
-			case "/newservice" :
+
+			case "/newservice":
 				newService(message);
 		}
 	}
