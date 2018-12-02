@@ -42,7 +42,6 @@ public class TelegramStarting {
 
 	}
 
-
 	@PostConstruct
 	public void createAdmins() {
 		for (String admin : telegramConfig.getAdmins()) {
