@@ -2,9 +2,8 @@ package com.lawfirm.service.telegram;
 
 import com.lawfirm.dto.telegram.Message;
 import com.lawfirm.dto.telegram.TelegramEntity;
-import com.lawfirm.model.lawProject.EditableComponent;
+import com.lawfirm.exception.BotException;
 import com.lawfirm.model.telegram.User;
-import com.lawfirm.reposiory.EditableComponentRepository;
 import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +15,13 @@ public class MessageService {
 	private final MessageSenderService senderService;
 	private final BotCommandService botCommandService;
 	private final UserService userService;
-	private final EditableComponentRepository editableComponentRepo;
 	private final BotCommandServiceHelper commandHelper;
 
-	public MessageService(MessageSenderService senderService, BotCommandService botCommandService, UserService userService, EditableComponentRepository editableComponentRepo, BotCommandServiceHelper commandHelper) {
+	public MessageService(MessageSenderService senderService, BotCommandService botCommandService,
+						  UserService userService, BotCommandServiceHelper commandHelper) {
 		this.senderService = senderService;
 		this.botCommandService = botCommandService;
 		this.userService = userService;
-		this.editableComponentRepo = editableComponentRepo;
 		this.commandHelper = commandHelper;
 	}
 
@@ -41,16 +39,6 @@ public class MessageService {
 		}
 	}
 
-	public void settingTitle(Message message, User user) {
-		EditableComponent editableComponent = editableComponentRepo.findByComponentKey("TITLE")
-				.orElseGet(() -> new EditableComponent("TITLE", "Hi!"));
-
-		editableComponent.setValue(message.getText());
-		editableComponentRepo.saveAndFlush(editableComponent);
-		user.setStatus(null);
-		userService.save(user);
-		senderService.simpleMessage("A new title has been set - " + editableComponent.getValue(), message);
-	}
 
 	private void notStart(Message message) {
 		User user = userService.getUser(message.getChat().getId());
@@ -74,7 +62,7 @@ public class MessageService {
 	private void userStatus(Message message, User user) {
 		switch (user.getStatus()) {
 			case SETTING_TITLE:
-				settingTitle(message, user);
+				commandHelper.settingTitle(message, user);
 				break;
 			case NEW_SERVICE_NAME:
 				commandHelper.helpAddNewService(message);
@@ -88,6 +76,11 @@ public class MessageService {
 			case ARTICLE_CONTENT:
 				commandHelper.helpSetArticle(message, user);
 				break;
+			case BACKGROUND_1:
+				commandHelper.helpSetBackground(message, user);
+				break;
+			default:
+				throw new BotException(message.getChat().getId(), "Internal server error");
 		}
 	}
 

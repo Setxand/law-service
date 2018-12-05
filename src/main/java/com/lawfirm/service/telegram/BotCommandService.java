@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ResourceBundle;
 
-import static com.lawfirm.model.telegram.UserStatus.NEW_SERVICE_NAME;
-import static com.lawfirm.model.telegram.UserStatus.SETTING_TITLE;
+import static com.lawfirm.model.telegram.User.UserStatus.*;
 
 @Service
 public class BotCommandService {
@@ -27,7 +26,7 @@ public class BotCommandService {
 		this.helper = helper;
 	}
 
-
+	@Transactional
 	public void parseBotCommand(Message message) {
 		switch (message.getText()) {
 
@@ -41,20 +40,21 @@ public class BotCommandService {
 
 			case "/newservice":
 				newService(message);
+				break;
+			case "/background":
+				background(message);
+				break;
 		}
 	}
 
-
-	@Transactional
-	public void newService(Message message) {
+	private void newService(Message message) {
 		User user = userService.getUser(message.getChat().getId());
 		user.setStatus(NEW_SERVICE_NAME);
 		userService.save(user);
 		senderService.simpleMessage("Enter name of the new service : ", message);
 	}
 
-	@Transactional
-	public void start(Message message) {
+	private void start(Message message) {
 		User user = userService.getOrNew(message.getChat().getId());
 		user.setChatId(message.getChat().getId());
 
@@ -64,12 +64,17 @@ public class BotCommandService {
 		senderService.simpleMessage(helloMessage, message);
 	}
 
-	@Transactional
-	public void changeTitle(Message message) {
+	private void changeTitle(Message message) {
 		senderService.sendMessage(new TelegramRequest("Enter a new title : ", message.getChat().getId()));
 		User user = userService.getUser(message.getChat().getId());
 		user.setStatus(SETTING_TITLE);
 		userService.save(user);
+	}
+
+	private void background(Message message) {
+		senderService.sendMessage(new TelegramRequest("Enter a new background url : ", message.getChat().getId()));
+		User user = userService.getUser(message.getChat().getId());
+		user.setStatus(BACKGROUND_1);
 	}
 
 

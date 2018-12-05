@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.lawfirm.reposiory.EditableComponents.BACKGROUND_IMAGE;
+import static com.lawfirm.reposiory.EditableComponents.TITLE;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -33,15 +35,21 @@ public class LawControllerHelperServiceTest {
 	@Test
 	public void helpParseModelForIndexTest() {
 		List<ServiceTitle> list = Collections.singletonList(new ServiceTitle());
+
 		when(serviceTitleRepo.findAll()).thenReturn(list);
-		when(editableComponentRepo.findByComponentKey("TITLE")).thenReturn(Optional.of(
-				new EditableComponent("TITLE", "empty title!")));
+		when(editableComponentRepo.findByComponentKey(TITLE)).thenReturn(Optional.of(
+				new EditableComponent(TITLE, "empty title!")));
+
+		String imageTest = "image-test";
+		when(editableComponentRepo.findByComponentKey(BACKGROUND_IMAGE))
+				.thenReturn(Optional.of(new EditableComponent(BACKGROUND_IMAGE, imageTest)));
 
 		RedirectAttributesModelMap model = new RedirectAttributesModelMap();
 
 		helperService.helpParseModelForIndex(model);
 
 		assertEquals("empty title!", model.get("titleText"));
+		assertEquals(imageTest, model.get(BACKGROUND_IMAGE.name()));
 
 		RedirectAttributesModelMap modelTest = new RedirectAttributesModelMap();
 		modelTest.addAttribute("services", list);

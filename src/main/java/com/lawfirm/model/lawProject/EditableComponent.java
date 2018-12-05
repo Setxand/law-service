@@ -1,10 +1,9 @@
 package com.lawfirm.model.lawProject;
 
+import com.lawfirm.reposiory.EditableComponents;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,10 +12,11 @@ public class EditableComponent {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String componentKey;
+	@Enumerated(EnumType.STRING)
+	private EditableComponents componentKey;
 	private String value;
 
-	public EditableComponent(String componentKey, String value) {
+	public EditableComponent(EditableComponents componentKey, String value) {
 		this.componentKey = componentKey;
 		this.value = value;
 	}

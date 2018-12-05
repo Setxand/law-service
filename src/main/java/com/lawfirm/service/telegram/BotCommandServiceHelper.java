@@ -2,16 +2,19 @@ package com.lawfirm.service.telegram;
 
 import com.lawfirm.dto.telegram.Message;
 import com.lawfirm.exception.BotException;
+import com.lawfirm.model.lawProject.EditableComponent;
 import com.lawfirm.model.lawProject.ServiceBody;
 import com.lawfirm.model.lawProject.ServiceTitle;
 import com.lawfirm.model.telegram.User;
+import com.lawfirm.reposiory.EditableComponentRepository;
+import com.lawfirm.reposiory.EditableComponents;
 import com.lawfirm.reposiory.ServiceBodyRepo;
 import com.lawfirm.reposiory.ServiceTitleRepo;
 import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.lawfirm.model.telegram.UserStatus.*;
+import static com.lawfirm.model.telegram.User.UserStatus.*;
 
 @Service
 public class BotCommandServiceHelper {
@@ -20,14 +23,17 @@ public class BotCommandServiceHelper {
 	private final MessageSenderService senderService;
 	private final ServiceTitleRepo serviceTitleRepo;
 	private final ServiceBodyRepo serviceBodyRepo;
+	private final EditableComponentRepository editableComponentRepo;
 
-	public BotCommandServiceHelper(UserService userService, MessageSenderService senderService, ServiceTitleRepo serviceTitleRepo, ServiceBodyRepo serviceBodyRepo) {
+	public BotCommandServiceHelper(UserService userService, MessageSenderService senderService, ServiceTitleRepo serviceTitleRepo, ServiceBodyRepo serviceBodyRepo, EditableComponentRepository editableComponentRepo) {
 		this.userService = userService;
 		this.senderService = senderService;
 		this.serviceTitleRepo = serviceTitleRepo;
 		this.serviceBodyRepo = serviceBodyRepo;
+		this.editableComponentRepo = editableComponentRepo;
 	}
 
+	@Transactional
 	public void helpAddNewService(Message message) {
 		User user = userService.getUser(message.getChat().getId());
 
@@ -42,6 +48,18 @@ public class BotCommandServiceHelper {
 				newServiceImage(message, user);
 				break;
 		}
+	}
+
+	@Transactional
+	public void settingTitle(Message message, User user) {
+		EditableComponent editableComponent = editableComponentRepo.findByComponentKey(EditableComponents.TITLE)
+				.orElseGet(() -> new EditableComponent(EditableComponents.TITLE, "Hi!"));
+
+		editableComponent.setValue(message.getText());
+		editableComponentRepo.saveAndFlush(editableComponent);
+		user.setStatus(null);
+		userService.save(user);
+		senderService.simpleMessage("A new title has been set - " + editableComponent.getValue(), message);
 	}
 
 	@Transactional
@@ -75,6 +93,17 @@ public class BotCommandServiceHelper {
 		userService.save(user);
 
 		senderService.simpleMessage("Service successfully added", message);
+	}
+
+	@Transactional
+	public void helpSetBackground(Message message, User user) {
+		EditableComponent background = editableComponentRepo
+				.findByComponentKey(EditableComponents.BACKGROUND_IMAGE)
+				.orElseThrow(() -> new BotException(message.getChat().getId(), "Invalid background image ID"));
+
+		background.setValue(message.getText());
+		senderService.simpleMessage("background successfully added", message);
+		user.setStatus(null);
 	}
 
 	private void newServiceDescription(Message message, User user) {
