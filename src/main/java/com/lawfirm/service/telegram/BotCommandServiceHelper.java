@@ -14,7 +14,10 @@ import com.lawfirm.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ResourceBundle;
+
 import static com.lawfirm.model.telegram.User.UserStatus.*;
+import static com.lawfirm.service.telegram.CallBackData.BACKGROUND_QUESTION;
 
 @Service
 public class BotCommandServiceHelper {
@@ -106,6 +109,15 @@ public class BotCommandServiceHelper {
 		user.setStatus(null);
 	}
 
+	@Transactional
+	public void helpBackgroundImage(Message message) {
+		User user = userService.getUser(message.getChat().getId());
+		user.setMetaData(message.getText());
+		user.setStatus(User.UserStatus.BACKGROUND_QUESTION);
+
+		senderService.simpleQuestion(BACKGROUND_QUESTION, "?", getBundle(BACKGROUND_QUESTION.name()), message);
+	}
+
 	private void newServiceDescription(Message message, User user) {
 		ServiceTitle serviceTitle = serviceTitleRepo.findTopByOrderByIdDesc();
 		serviceTitle.setContent(message.getText());
@@ -123,5 +135,9 @@ public class BotCommandServiceHelper {
 		senderService.simpleMessage("Enter description : ", message);
 		user.setStatus(NEW_SERVICE_DESCRIPTION);
 		userService.save(user);
+	}
+
+	private String getBundle(String var) {
+		return ResourceBundle.getBundle("messages").getString(var);
 	}
 }

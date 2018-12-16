@@ -26,7 +26,6 @@ public class BotCommandService {
 		this.helper = helper;
 	}
 
-	@Transactional
 	public void parseBotCommand(Message message) {
 		switch (message.getText()) {
 

@@ -18,13 +18,16 @@ public class User {
 		NEW_SERVICE_DESCRIPTION,
 		NEW_SERVICE_IMAGE,
 		ARTICLE_CONTENT,
-		BACKGROUND_1
+		BACKGROUND_1,
+		BACKGROUND_QUESTION
 	}
 
 	@Id
 	private Integer chatId;
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
+
+	private String metaData;
 
 	public User() {
 	}

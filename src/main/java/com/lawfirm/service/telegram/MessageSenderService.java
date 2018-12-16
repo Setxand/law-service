@@ -68,7 +68,7 @@ public class MessageSenderService {
 
 
 	public void sendInlineButtons(List<List<InlineKeyboardButton>> buttons, String text, Message message) {
-		Markup markup = (Markup) new InlineKeyboardMarkup(buttons);
+		Markup markup =  new InlineKeyboardMarkup(buttons);
 		sendButtons(markup, text, message);
 	}
 

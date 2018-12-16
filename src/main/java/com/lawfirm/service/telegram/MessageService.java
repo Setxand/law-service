@@ -1,13 +1,12 @@
 package com.lawfirm.service.telegram;
 
 import com.lawfirm.dto.telegram.Message;
-import com.lawfirm.dto.telegram.TelegramEntity;
 import com.lawfirm.exception.BotException;
 import com.lawfirm.model.telegram.User;
 import com.lawfirm.service.UserService;
+import com.lawfirm.validator.MessageValidator;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MessageService {
@@ -16,19 +15,20 @@ public class MessageService {
 	private final BotCommandService botCommandService;
 	private final UserService userService;
 	private final BotCommandServiceHelper commandHelper;
-
+	private final MessageValidator validator;
 	public MessageService(MessageSenderService senderService, BotCommandService botCommandService,
-						  UserService userService, BotCommandServiceHelper commandHelper) {
+						  UserService userService, BotCommandServiceHelper commandHelper, MessageValidator validator) {
 		this.senderService = senderService;
 		this.botCommandService = botCommandService;
 		this.userService = userService;
 		this.commandHelper = commandHelper;
+		this.validator = validator;
 	}
-
+	@Transactional
 	public void parseMessage(Message message) {
 
 		if (message.getText() != null) {
-			if (message.getText().equals("/start")) {
+			if (message.getText().startsWith("/")) {
 
 				botCommandService.parseBotCommand(message);
 			} else {
@@ -42,21 +42,11 @@ public class MessageService {
 
 	private void notStart(Message message) {
 		User user = userService.getUser(message.getChat().getId());
+
 		if (user.getStatus() != null)
 			userStatus(message, user);
 
-		else if (message.getEntities() != null) {
-			List<TelegramEntity> entities = message.getEntities();
-			for (TelegramEntity telegramEntity : entities) {
-				if (telegramEntity.getType().equals("url")) {
-					checkingByStatus(message);
-					break;
-				}
-				botCommandService.parseBotCommand(message);
-			}
-			return;
-		}
-		checkingByStatus(message);
+		validator.validateMessage(message);
 	}
 
 	private void userStatus(Message message, User user) {
@@ -84,8 +74,7 @@ public class MessageService {
 		}
 	}
 
-	private void checkingByStatus(Message message) {
-	}
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.lawfirm.dto.telegram.button;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lawfirm.dto.telegram.Markup;
 import lombok.Data;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class KeyboardMarkup implements Markup {
+public class KeyboardMarkup {
 	private List<List<KeyboardButton>> keyboard;
 
 	public KeyboardMarkup(List<List<KeyboardButton>> keyboard) {
