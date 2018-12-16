@@ -11,19 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MessageService {
 
-	private final MessageSenderService senderService;
 	private final BotCommandService botCommandService;
 	private final UserService userService;
 	private final BotCommandServiceHelper commandHelper;
 	private final MessageValidator validator;
-	public MessageService(MessageSenderService senderService, BotCommandService botCommandService,
+
+	public MessageService(BotCommandService botCommandService,
 						  UserService userService, BotCommandServiceHelper commandHelper, MessageValidator validator) {
-		this.senderService = senderService;
 		this.botCommandService = botCommandService;
 		this.userService = userService;
 		this.commandHelper = commandHelper;
 		this.validator = validator;
 	}
+
 	@Transactional
 	public void parseMessage(Message message) {
 
@@ -35,7 +35,7 @@ public class MessageService {
 				notStart(message);
 			}
 		} else {
-			notStart(message);
+			throw new BotException(message.getChat().getId());
 		}
 	}
 
@@ -45,8 +45,8 @@ public class MessageService {
 
 		if (user.getStatus() != null)
 			userStatus(message, user);
-
-		validator.validateMessage(message);
+		else
+			validator.validateMessage(message);
 	}
 
 	private void userStatus(Message message, User user) {
@@ -70,7 +70,7 @@ public class MessageService {
 				commandHelper.helpSetBackground(message, user);
 				break;
 			default:
-				throw new BotException(message.getChat().getId(), "Internal server error");
+				throw new BotException(message.getChat().getId());
 		}
 	}
 

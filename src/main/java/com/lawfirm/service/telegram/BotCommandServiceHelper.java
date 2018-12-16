@@ -109,15 +109,6 @@ public class BotCommandServiceHelper {
 		user.setStatus(null);
 	}
 
-	@Transactional
-	public void helpBackgroundImage(Message message) {
-		User user = userService.getUser(message.getChat().getId());
-		user.setMetaData(message.getText());
-		user.setStatus(User.UserStatus.BACKGROUND_QUESTION);
-
-		senderService.simpleQuestion(BACKGROUND_QUESTION, "?", getBundle(BACKGROUND_QUESTION.name()), message);
-	}
-
 	private void newServiceDescription(Message message, User user) {
 		ServiceTitle serviceTitle = serviceTitleRepo.findTopByOrderByIdDesc();
 		serviceTitle.setContent(message.getText());
@@ -137,7 +128,4 @@ public class BotCommandServiceHelper {
 		userService.save(user);
 	}
 
-	private String getBundle(String var) {
-		return ResourceBundle.getBundle("messages").getString(var);
-	}
 }

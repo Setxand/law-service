@@ -11,5 +11,11 @@ public class BotException extends RuntimeException {
 		this.chatId = chatId;
 	}
 
+	//Internal server
+	public BotException(Integer chatId) {
+		super("Internal server error");
+		this.chatId = chatId;
+	}
+
 
 }

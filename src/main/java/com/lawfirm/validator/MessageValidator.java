@@ -2,29 +2,30 @@ package com.lawfirm.validator;
 
 import com.lawfirm.dto.telegram.Message;
 import com.lawfirm.exception.BotException;
-import com.lawfirm.service.telegram.BotCommandServiceHelper;
+import com.lawfirm.service.telegram.MetaService;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Component
 public class MessageValidator {
-	private final BotCommandServiceHelper helper;
+	private final MetaService metaService;
 
 	private enum ImageType {
 		JPG,
 		PNG
 	}
 
-	public MessageValidator(BotCommandServiceHelper helper) {
-		this.helper = helper;
+	public MessageValidator(MetaService metaService) {
+		this.metaService = metaService;
 	}
+
 
 	public void validateMessage(Message message) {
 		String text = message.getText();
 
 		if (urlHeaderCheck(text) && urlImageCheck(text)) {
-			helper.helpBackgroundImage(message);
+			metaService.helpAskBackgroundImage(message);
 			return;
 		}
 
